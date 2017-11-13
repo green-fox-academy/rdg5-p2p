@@ -18,4 +18,5 @@ public class UserController {
   model.addAttribute("user",repo.findAll());
   return "chat";
   }
+
 }
