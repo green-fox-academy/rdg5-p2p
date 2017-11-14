@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
-@Entity
+@Entity(name = "Log")
 public class Log {
 
   @Id
