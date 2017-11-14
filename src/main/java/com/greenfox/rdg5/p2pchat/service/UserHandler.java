@@ -20,16 +20,16 @@ public class UserHandler {
   }
 
   @Autowired
-  UserRepository chatUserRepository;
+  UserRepository userRepository;
 
   public void addChatUser(String username) {
     User chatUser = new User(username);
-    chatUserRepository.save(chatUser);
+    userRepository.save(chatUser);
   }
 
   public boolean checkIfUserExists(String username) {
     boolean exists = false;
-    for (User user : chatUserRepository.findAll()) {
+    for (User user : userRepository.findAll()) {
       if (user.getUsername().equals(username)) {
         exists = true;
       }
@@ -38,15 +38,15 @@ public class UserHandler {
   }
 
   public User getUserFromDatabaseByName(String username) {
-    return chatUserRepository.findUserByUsername(username);
+    return userRepository.findUserByUsername(username);
   }
 
   public User getUserFromDatabaseById(Long id) {
-    return chatUserRepository.findUserById(id);
+    return userRepository.findUserById(id);
   }
 
   public void saveUser(User user) {
-    chatUserRepository.save(user);
+    userRepository.save(user);
   }
 
 }
