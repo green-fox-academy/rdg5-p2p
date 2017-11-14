@@ -27,6 +27,7 @@ public class User {
   public Long getId() {
     return id;
   }
+  //something
 
   public void setId(Long id) {
     this.id = id;
