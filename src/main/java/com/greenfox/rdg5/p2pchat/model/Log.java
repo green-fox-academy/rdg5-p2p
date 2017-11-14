@@ -42,6 +42,10 @@ public class Log {
     this.requestData = "";
   }
 
+  public Log(HttpServletRequest request) {
+
+  }
+
   public Long getId() {
     return id;
   }

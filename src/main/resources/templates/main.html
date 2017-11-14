@@ -25,12 +25,14 @@
 <!--</tr>-->
 <!--</table>-->
 
-<form action="/enter/add">
-  Choose your name:
-  <input type="text" name="username" placeholder="username"/>
-  <input type="submit" value="Enter"/>
+<h2 th:if="${noUsername} == ''">The username field is empty!</h2>
+<h2 th:if="${existingUsername} == true">The username is already used!</h2>
+<h1>Peer to Peer Chat Program</h1>
+<form th:action="@{/{id}/update(id=${activeUser.getId()})}">
+  Your username:
+  <input type="text" th:placeholder="${activeUser.getUsername()}" name="username"/>
+  <input type="submit" value="Update"/>
 </form>
-
 
 </body>
 </html>

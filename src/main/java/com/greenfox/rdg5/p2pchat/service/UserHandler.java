@@ -8,37 +8,45 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserHandler {
 
-  private User onlineUser;
+
+  private User activeUser;
 
   public User getActiveUser() {
-    return onlineUser;
+    return activeUser;
   }
 
-  public void setOnline(User onlineUser) {
-    this.onlineUser = onlineUser;
+  public void setActiveUser(User activeUser) {
+    this.activeUser = activeUser;
   }
 
   @Autowired
-  UserRepository userRepository;
+  UserRepository chatUserRepository;
 
   public void addChatUser(String username) {
     User chatUser = new User(username);
-    userRepository.save(chatUser);
+    chatUserRepository.save(chatUser);
   }
 
   public boolean checkIfUserExists(String username) {
     boolean exists = false;
-    for (User user : userRepository.findAll()) {
-      if (user.getName().equals(username)) {
+    for (User user : chatUserRepository.findAll()) {
+      if (user.getUsername().equals(username)) {
         exists = true;
       }
     }
     return exists;
   }
 
+  public User getUserFromDatabaseByName(String username) {
+    return chatUserRepository.findUserByUsername(username);
+  }
+
+  public User getUserFromDatabaseById(Long id) {
+    return chatUserRepository.findUserById(id);
+  }
 
   public void saveUser(User user) {
-    userRepository.save(user);
+    chatUserRepository.save(user);
   }
 
 }
