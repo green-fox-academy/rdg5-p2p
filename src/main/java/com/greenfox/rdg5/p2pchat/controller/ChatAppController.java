@@ -1,8 +1,10 @@
 package com.greenfox.rdg5.p2pchat.controller;
 
+import com.greenfox.rdg5.p2pchat.model.Message;
 import com.greenfox.rdg5.p2pchat.repository.LogRepository;
-//import com.greenfox.rdg5.p2pchat.service.RequestHandler;
+import com.greenfox.rdg5.p2pchat.repository.MessageRepository;
 import com.greenfox.rdg5.p2pchat.repository.UserRepository;
+import com.greenfox.rdg5.p2pchat.service.MessageHandler;
 import com.greenfox.rdg5.p2pchat.service.RequestHandler;
 import com.greenfox.rdg5.p2pchat.service.UserHandler;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ChatAppController {
+
+  @Autowired
+  MessageRepository messageRepository;
+
+  @Autowired
+  MessageHandler messageHandler;
 
   @Autowired
   RequestHandler handler;
@@ -36,6 +44,7 @@ public class ChatAppController {
       return "user";
     } else {
       model.addAttribute("activeUser", userHandler.getActiveUser());
+      model.addAttribute("messages", messageHandler.listMessages());
       return "main";
     }
   }
@@ -83,4 +92,15 @@ public class ChatAppController {
     return "redirect:/";
   }
 
+  @GetMapping("/writemessage")
+  public String writeMessage(@RequestParam(value = "text") String text,
+      HttpServletRequest request) {
+    messageHandler.addMessage(new Message(userHandler.getActiveUser().getUsername(), text));
+    handler.printNormalLog(request);
+    return "redirect:/";
+  }
+
+
 }
+
+
